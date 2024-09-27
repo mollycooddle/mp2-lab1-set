@@ -2,6 +2,106 @@
 
 #include <gtest.h>
 
+TEST(TBitField, test_elem)
+{
+    const int size = 70;
+    TBitField resbf(size), bf1(size);
+
+    bf1.SetBit(65);
+
+    resbf.SetBit(65);
+
+    EXPECT_EQ(resbf, bf1);
+}
+
+TEST(TBitField, test_elem_2)
+{
+    const int size = 70;
+    TBitField resbf(size), bf1(size);
+
+    bf1.SetBit(33);
+
+    resbf.SetBit(33);
+
+    EXPECT_EQ(resbf, bf1);
+}
+
+TEST(TBitField, can_set_all_bits) {
+    const int size = 1000;
+    TBitField bf(size);
+    for (int i = 0; i < size; i++) {
+        bf.SetBit(i);
+    }
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(1, bf.GetBit(i));
+    }
+}
+
+TEST(TBitField, or_) {
+    const int size = 70;
+    const int size1 = 35;
+    TBitField resbf(size), bf1(size), bf2(size1),resultbf(size);
+
+    bf1.SetBit(33);
+    bf2.SetBit(20);
+
+    resbf = bf1 | bf2;
+
+    resultbf.SetBit(33);
+    resultbf.SetBit(20);
+
+    EXPECT_EQ(resultbf ,resbf);
+}
+
+TEST(TBitField, or_reserve) {
+    const int size = 70;
+    const int size1 = 35;
+    TBitField resbf(size), bf1(size), bf2(size1), resultbf(size);
+
+    bf1.SetBit(33);
+    bf2.SetBit(20);
+
+    resbf = bf2 | bf1;
+
+    resultbf.SetBit(33);
+    resultbf.SetBit(20);
+
+    EXPECT_EQ(resultbf, resbf);
+}
+
+TEST(TBitField, and_) {
+    const int size = 70;
+    const int size1 = 35;
+    TBitField resbf(size), bf1(size), bf2(size1), resultbf(size);
+
+    bf1.SetBit(3);
+    bf2.SetBit(3);
+
+    resbf = bf1 & bf2;
+
+    resultbf.SetBit(3);
+
+    EXPECT_EQ(resultbf, resbf);
+}
+
+TEST(TBitField, and_reverse) {
+    const int size = 70;
+    const int size1 = 35;
+    TBitField resbf(size), bf1(size), bf2(size1), resultbf(size);
+
+    bf1.SetBit(3);
+    bf2.SetBit(3);
+
+    resbf = bf2 & bf1;
+
+    resultbf.SetBit(3);
+
+    EXPECT_EQ(resultbf, resbf);
+}
+
+/////
+
+
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
   ASSERT_NO_THROW(TBitField bf(3));
