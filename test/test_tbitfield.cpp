@@ -2,6 +2,32 @@
 
 #include <gtest.h>
 
+TEST(TBitField, test_istr)
+{
+    const int size = 2;
+    TBitField bf1(size), res(size);
+
+    cin >> bf1;
+    res.SetBit(1);
+
+    EXPECT_EQ(1, bf1.GetBit(0));
+    EXPECT_EQ(0, bf1.GetBit(1));
+}
+
+TEST(TBitField, test_ostr)
+{
+    const int size = 2;
+    TBitField bf1(size), res(size);
+
+    bf1.SetBit(0);
+    cout << std::endl;
+    cout << bf1;
+    cout << "actual: 1, 0";
+    cout << std::endl;
+
+    EXPECT_EQ(1, bf1.GetBit(0));
+}
+
 TEST(TBitField, test_otric)
 {
     const int size = 2;

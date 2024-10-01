@@ -178,18 +178,25 @@ TBitField TBitField::operator~(void) // отрицание                      
 
 // ввод/вывод
 
-istream& operator>>(istream & istr, TBitField & bf) // ввод
+istream& operator>>(istream & istr, TBitField & bf) // ввод                                       //test est'
 {
-    for (int i = 0; i < bf.MemLen; i++) {
-        istr >> bf.pMem[i];
+    char is;
+
+    for (int i = 0; i < bf.BitLen; i++) {
+        istr >> is;
+
+        if (is == '0') bf.ClrBit(i);
+        else if (is == '1') bf.SetBit(i);
+        else throw "Incorrect symbol";
     }
+
     return istr;
 }
 
 ostream& operator<<(ostream & ostr, const TBitField & bf) // вывод
 {
-    for (int i = bf.BitLen; i >= 0; i -= 1) {
-        ostr << bf.GetBit(i) << " ";
-    }
+    for (int i = 0; i < bf.BitLen; i++)
+        ostr << bf.GetBit(i);
+
     return ostr;
 }
